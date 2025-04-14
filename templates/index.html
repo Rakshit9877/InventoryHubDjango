@@ -1,0 +1,515 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="InventoryHub - Comprehensive inventory management software for Indian businesses with GST billing and warehouse management">
+    <title>InventoryHub | Inventory Management Software for Indian Businesses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
+<body>
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="top-nav">
+            <div class="container">
+                <div class="logo-container">
+                    <a href="/">
+                        <img src="{% static 'images/try_logo.png' %}" alt="InventoryHub Logo" class="logo">
+                    </a>
+                </div>
+                <nav class="primary-nav">
+                    <ul>
+                        <!-- Header options removed -->
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="search-icon">
+                        <img src="{% static 'images/search.png' %}" alt="Search" width="16" height="16">
+                    </a>
+                    <a href="{% url 'accounts:login' %}" class="sign-in">SIGN IN</a>
+                    <a href="{% url 'accounts:register' %}" class="sign-up">SIGN UP NOW</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="sub-nav">
+            <div class="container">
+                <div class="product-branding">
+                    <a href="/">
+                        <img src="{% static 'images/try_logo.png' %}" alt="InventoryHub Logo" class="product-logo">
+                        <span>Inventory</span>
+                    </a>
+                </div>
+                <nav class="secondary-nav">
+                    <ul>
+                        <li class="dropdown"><a href="#">Features <span class="dropdown-arrow">▼</span></a></li>
+                        <li class="dropdown"><a href="#">Solutions <span class="dropdown-arrow">▼</span></a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Customers</a></li>
+                        <li class="dropdown"><a href="#">Integrations <span class="dropdown-arrow">▼</span></a></li>
+                        <li class="dropdown"><a href="#">Resources <span class="dropdown-arrow">▼</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Inventory management software designed for Indian businesses</h1>
+                <p>Manage orders. Track inventory. Handle GST billing. Oversee warehouses. One inventory management software to run all your inventory operations.</p>
+                <div class="hero-buttons">
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'accounts:register' %}" class="primary-button">SIGN UP - IT'S FREE</a>
+                        <a href="#" class="secondary-button">EXPLORE DEMO ACCOUNT</a>
+                    {% else %}
+                        <a href="{% url 'inventory:dashboard' %}" class="primary-button">GO TO DASHBOARD</a>
+                        <a href="{% url 'accounts:profile' %}" class="secondary-button">VIEW YOUR PROFILE</a>
+                    {% endif %}
+                </div>
+                
+                <div class="ratings">
+                    <img src="{% static 'images/Screenshot 2025-02-11 at 9.05.50 PM.png' %}" alt="Ratings" class="full-width-image" style="max-width: 100%;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview">
+        <div class="container">
+            <div class="dashboard-image">
+                <img src="{% static 'images/Screenshot 2025-02-11 at 9.05.50 PM.png' %}" alt="Inventory Dashboard Preview" class="full-width-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- GST Compliant Section -->
+    <section class="gst-compliant-section">
+        <div class="container">
+            <h2>What makes InventoryHub GST Compliant</h2>
+            <div class="compliance-tabs">
+                <div class="tab active">GSTIN</div>
+                <div class="tab">HSN/SAC CODES</div>
+                <div class="tab">INVOICES</div>
+                <div class="tab">TAXES</div>
+                <div class="tab">E-WAY BILLS</div>
+                <div class="tab">DELIVERY CHALLAN</div>
+            </div>
+            
+            <div class="compliance-content">
+                <div class="content-image">
+                    <img src="{% static 'images/gstin-form.png' %}" alt="GSTIN Form" class="compliance-img">
+                </div>
+                <div class="content-text">
+                    <h3>Save GSTINs</h3>
+                    <p>Keep a central record of the GSTIN for the registered businesses and save time from manually entering it every time.</p>
+                    
+                    <ul class="benefit-list">
+                        <li>Save GSTIN of customers and vendors</li>
+                        <li>GSTIN gets added in the documents automatically</li>
+                        <li>Documents like invoice, bills, sales and purchase orders</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- E-Invoicing Section -->
+    <section class="e-invoicing-section">
+        <div class="container">
+            <div class="e-invoicing-content">
+                <div class="content-image">
+                    <img src="{% static 'images/E-invoicing.png' %}" alt="E-Invoicing" class="e-invoice-img">
+                </div>
+                <div class="content-text">
+                    <h3>E-Invoicing</h3>
+                    <p>Create e-invoices with InventoryHub and make your business compliant with the GST e-invoicing laws</p>
+                    <a href="#" class="learn-more-button">LEARN MORE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Support Section -->
+    <section class="business-support-section">
+        <div class="container">
+            <h2>From MSMEs to large-scale corporations, InventoryHub supports all businesses</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{% static 'images/t-shirt_group.png' %}" alt="Order Management" class="feature-img">
+                    </div>
+                    <h3>Order management</h3>
+                    <p>Handle all your sales and purchases activities, manage invoices and bills, and track payments. InventoryHub also helps you monitor packages and shipments to keep your deliveries on time.</p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{% static 'images/tshirt.png' %}" alt="Warehouse Management" class="feature-img">
+                    </div>
+                    <h3>Warehouse management</h3>
+                    <p>You can control your stock in different warehouses or godowns centrally from InventoryHub. Track item movements, transfer items within warehouses, and generate warehouse-specific reports.</p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{% static 'images/price_list.png' %}" alt="Barcode Scanning" class="feature-img">
+                    </div>
+                    <h3>Barcode scanning</h3>
+                    <p>InventoryHub is compatible with different types of barcode scanners which makes it easy to set up a barcode system and add SKUs, serial and batch numbers, and items to sales and purchase orders.</p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{% static 'images/composite.png' %}" alt="Integrations" class="feature-img">
+                    </div>
+                    <h3>Integrations</h3>
+                    <p>Sell on Shopify or Etsy, integrate with CRM and Books, and receive payment online via PayPal or Razorpay—there is a wide range of integrations to support your business.</p>
+                    <a href="#" class="learn-more">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section class="integrations-section">
+        <div class="container">
+            <h2>InventoryHub integrates with</h2>
+            <div class="integration-logos">
+                <div class="logo-item">
+                    <img src="{% static 'images/googlr.png' %}" alt="GSuite" class="integration-logo">
+                    <p>Gsuite</p>
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo_small.png' %}" alt="Zoho Books" class="integration-logo">
+                    <p>Zoho Books</p>
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/aftership.png' %}" alt="AfterShip" class="integration-logo">
+                    <p>AfterShip</p>
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo_small.png' %}" alt="Zoho CRM" class="integration-logo">
+                    <p>Zoho CRM</p>
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/shopify.png' %}" alt="Shopify" class="integration-logo">
+                    <p>Shopify</p>
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/amazon.png' %}" alt="Amazon" class="integration-logo">
+                    <p>Amazon</p>
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/razorpay.png' %}" alt="Razorpay" class="integration-logo">
+                    <p>Razorpay</p>
+                </div>
+            </div>
+            <div class="more-integrations">
+                <a href="#" class="more-button">MORE INTEGRATIONS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Section -->
+    <section class="mobile-app-section">
+        <div class="container">
+            <div class="app-content">
+                <div class="app-text">
+                    <h2>Manage and fulfill orders on the go</h2>
+                    <p>Stay connected and get real-time updates on the order status, no matter where you are.</p>
+                    <div class="app-stores">
+                        <a href="#" class="app-store-button">
+                            <img src="{% static 'images/app-store.png' %}" alt="App Store" class="app-store-img">
+                        </a>
+                        <a href="#" class="play-store-button">
+                            <img src="{% static 'images/play-store.png' %}" alt="Play Store" class="play-store-img">
+                        </a>
+                    </div>
+                </div>
+                <div class="app-image">
+                    <img src="{% static 'images/mobile-app.png' %}" alt="Mobile App" class="mobile-app-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h2>Simple pricing. <span class="highlight">No surprises.</span></h2>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">
+                        <span class="rupee">₹</span>
+                        <span class="amount">0</span>
+                    </div>
+                    <div class="pricing-details">
+                        <p class="per-org">per organization / year</p>
+                        <p class="monthly-price">₹ 0 per organization / month</p>
+                    </div>
+                    <a href="{% url 'accounts:register' %}" class="pricing-button">GET STARTED</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Standard</h3>
+                    <div class="price">
+                        <span class="rupee">₹</span>
+                        <span class="amount">12,999</span>
+                    </div>
+                    <div class="pricing-details">
+                        <p class="per-org">per organization / year</p>
+                        <p class="monthly-price">₹ 2,299 per organization / month</p>
+                    </div>
+                    <a href="#" class="pricing-button">GET STARTED</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Professional</h3>
+                    <div class="price">
+                        <span class="rupee">₹</span>
+                        <span class="amount">26,999</span>
+                    </div>
+                    <div class="pricing-details">
+                        <p class="per-org">per organization / year</p>
+                        <p class="monthly-price">₹ 5,499 per organization / month</p>
+                    </div>
+                    <a href="#" class="pricing-button">GET STARTED</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-tag">MOST POPULAR</div>
+                    <h3>Premium</h3>
+                    <div class="price">
+                        <span class="rupee">₹</span>
+                        <span class="amount">45,999</span>
+                    </div>
+                    <div class="pricing-details">
+                        <p class="per-org">per organization / year</p>
+                        <p class="monthly-price">₹ 9,499 per organization / month</p>
+                    </div>
+                    <a href="#" class="pricing-button highlight">GET STARTED</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">
+                        <span class="rupee">₹</span>
+                        <span class="amount">89,999</span>
+                    </div>
+                    <div class="pricing-details">
+                        <p class="per-org">per organization / year</p>
+                        <p class="monthly-price">₹ 17,499 per organization / month</p>
+                    </div>
+                    <a href="#" class="pricing-button">GET STARTED</a>
+                </div>
+            </div>
+            
+            <div class="pricing-notes">
+                <p class="gst-note">* Prices are exclusive of GST.</p>
+                <p class="pricing-page-link">Check out our <a href="#">Pricing page</a> for complete details ›</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>Here's what a few of our Indian customers have to say about us</h2>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-content">
+                        <p>InventoryHub has helped us to manage our inventory and customers efficiently and automate many of our business processes. Its effortless to navigate and its seamless integration with other products has proven to be very helpful.</p>
+                        <div class="testimonial-author">
+                            <img src="{% static 'images/rakshit.jpeg' %}" alt="Testimonial Author" class="author-img">
+                            <div class="author-info">
+                                <h4>SHARAD NAWALGARIA</h4>
+                                <p>Director, Fida India</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-highlights">
+                        <h3>What they like about InventoryHub</h3>
+                        <div class="highlight-quote">
+                            <p>Easy-to-use interface</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shipping Partners Section -->
+    <section class="shipping-partners-section">
+        <div class="container">
+            <h2>We have partnered with the best shipping carriers</h2>
+            
+            <div class="partners-logos">
+                <img src="{% static 'images/aramex.png' %}" alt="Aramex" class="partner-logo">
+                <img src="{% static 'images/dhl.png' %}" alt="DHL" class="partner-logo">
+                <img src="{% static 'images/dpd.png' %}" alt="DPD" class="partner-logo">
+                <img src="{% static 'images/ups.png' %}" alt="UPS" class="partner-logo">
+                <img src="{% static 'images/fedex.png' %}" alt="FedEx" class="partner-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Hello, Namaste, Vanakkam 🙏</h2>
+            <p>We will be happy to have you on board.</p>
+            <a href="{% url 'accounts:register' %}" class="cta-button">SIGN UP FOR FREE</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-branding">
+                <img src="{% static 'images/try_logo.png' %}" alt="InventoryHub Logo" class="footer-logo">
+                <p class="tagline">Made in India. Made for the world.</p>
+            </div>
+            
+            <div class="other-apps">
+                <h3>Other Finance & Operations Apps</h3>
+                <div class="apps-grid">
+                    <div class="app-item">
+                        <img src="{% static 'images/logo_small.png' %}" alt="Books" class="app-icon">
+                        <div class="app-info">
+                            <h4>Books</h4>
+                            <p>Online Accounting Software</p>
+                        </div>
+                    </div>
+                    
+                    <div class="app-item">
+                        <img src="{% static 'images/logo_small.png' %}" alt="Billing" class="app-icon">
+                        <div class="app-info">
+                            <h4>Billing</h4>
+                            <p>End-to-End Billing Solution</p>
+                        </div>
+                    </div>
+                    
+                    <div class="app-item">
+                        <img src="{% static 'images/logo_small.png' %}" alt="Expense" class="app-icon">
+                        <div class="app-info">
+                            <h4>Expense</h4>
+                            <p>Online Expense Reporting</p>
+                        </div>
+                    </div>
+                    
+                    <div class="app-item">
+                        <img src="{% static 'images/logo_small.png' %}" alt="Checkout" class="app-icon">
+                        <div class="app-info">
+                            <h4>Checkout</h4>
+                            <p>Online Payments Software</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <a href="#">Home</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Security</a>
+                    <a href="#">IPR Complaints</a>
+                    <a href="#">Anti-spam Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">GDPR Compliance</a>
+                    <a href="#">Abuse Policy</a>
+                </div>
+                <p class="copyright">&copy; 2025, InventoryHub. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Support Button -->
+    <div class="support-chat">
+        <button class="chat-button">
+            <img src="{% static 'images/chat.png' %}" alt="Chat Support" class="chat-icon">
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const primaryNav = document.querySelector('.primary-nav ul');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileMenuToggle.classList.toggle('active');
+                    primaryNav.classList.toggle('show');
+                });
+            }
+            
+            // Testimonial slider
+            const dots = document.querySelectorAll('.testimonial-dots .dot');
+            if (dots.length > 0) {
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', function() {
+                        document.querySelector('.testimonial-dots .dot.active').classList.remove('active');
+                        this.classList.add('active');
+                        
+                        // Additional slider functionality would go here
+                    });
+                });
+            }
+            
+            // Compliance tabs
+            const tabs = document.querySelectorAll('.compliance-tabs .tab');
+            if (tabs.length > 0) {
+                tabs.forEach((tab) => {
+                    tab.addEventListener('click', function() {
+                        document.querySelector('.compliance-tabs .tab.active').classList.remove('active');
+                        this.classList.add('active');
+                        
+                        // Content switching functionality would go here
+                    });
+                });
+            }
+            
+            // Sticky header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.main-header');
+                if (window.scrollY > 10) {
+                    header.classList.add('sticky');
+                } else {
+                    header.classList.remove('sticky');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
