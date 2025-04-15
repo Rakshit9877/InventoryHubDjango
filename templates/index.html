@@ -529,6 +529,7 @@ footer {
     cursor: pointer;
 }
 
+
 .more-integrations {
     margin-top: 50px;
     font-size: 15px;
@@ -831,12 +832,12 @@ footer {
 
 
 .integration-item:nth-child(-n+3) {
-    animation: slideOutLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideOutLeft 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-play-state: paused;
 }
 
 .integration-item:nth-child(n+5) {
-    animation: slideOutRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: slideOutRight 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     animation-play-state: paused;
 }
 
@@ -1495,6 +1496,18 @@ body {
     }
   }
 
+  .integration-item {
+    opacity: 1; /* Change from 0 to 1 */
+    position: relative;
+}
+
+.IH {
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
     </style>
 </head>
 
@@ -1555,8 +1568,8 @@ body {
    
 <div class="hero">
         <div class="hero">
-            <p class="heading">Inventory Hub - PayRoll Manage your businesses with PayRoll System of Inventory Hub</p>
-            <!-- <p class="head-description">Manage your Company with InventoryHub-PayRoll<br>inventory operations.</p> -->
+            <p class="heading">Inventory management software designed for Indian businesses</p>
+            <p class="head-description">Manage your Company with InventoryHub<br>inventory operations.</p>
             <div class="button-group">
                 {% if not user.is_authenticated %}
                     <a href="{% url 'accounts:register' %}" class="button">Sign Up - It's Free</a>
@@ -1565,7 +1578,6 @@ body {
                         <h2>Welcome back, {{ user.username }}!</h2>
                         <p>Managing inventory for You in an Easier Way</p>
                         <a href="{% url 'inventory:dashboard' %}" class="button">Go to Dashboard</a>
-                        <a href="{% url 'employee:employee_list' %}" class="button" style="margin-left: 24px;">Manage Employee's</a>
                         <a href="{% url 'accounts:profile' %}" class="button" style="margin-left: 24px;">View Your Profile</a>
                         {% if user.is_superuser %}
                             <a href="{% url 'admin_dashboard:admin_dashboard' %}" class="button" style="margin-left: 24px;">Show Admin Page</a>
@@ -1607,7 +1619,7 @@ body {
                     </nav>
                 </aside>
                 <section class="content">
-                    <h2>Employee Activity</h2>
+                    <h2>Sales Activity</h2>
                     <div class="stats-grid">
                         <div class="stat-item">
                             <span class="stat-label">Present</span>
@@ -1651,7 +1663,7 @@ body {
 
     <div class="block">
         <div class="block-p">
-            <p>Employee Management Made Easy with InventoryHub-PayRoll</p>
+            <p>Inventory Management Made Easy with InventoryHub</p>
         </div>
     </div>
 
@@ -1714,7 +1726,7 @@ body {
         </div>
     </div>
 
-    <div class="integrations">
+    <!-- <div class="integrations">
         <h2 class="integrations-title">InventoryHub integrates with</h2>
         <div class="integrations-list">
             <div class="integration-item">
@@ -1740,7 +1752,37 @@ body {
             </div>
         </div>
         <p class="more-integrations">MORE INTEGRATIONS</p>
+    </div> -->
+
+
+    <div class="integrations">
+        <h2 class="integrations-title">InventoryHub integrates with</h2>
+        <div class="integrations-list">
+            <div class="integration-item animate">
+                <img src="{% static 'images/aftership.png' %}" alt="Aftership" class="IH">
+            </div>
+            <div class="integration-item animate">
+                <img src="{% static 'images/shopify.png' %}" alt="Shopify" class="IH">
+            </div>
+            <div class="integration-item animate">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="IH">
+            </div>
+            <div class="integration-item animate">
+                <img src="{% static 'images/InventoryHub-removebg-preview.png' %}" alt="InventoryHub" class="IH">
+            </div>
+            <div class="integration-item animate">
+                <img src="{% static 'images/logo_small.png' %}" alt="Logo Small" class="IH">
+            </div>
+            <div class="integration-item animate">
+                <img src="{% static 'images/razorpay.png' %}" alt="Razorpay" class="IH">
+            </div>
+            <div class="integration-item animate">
+                <img src="{% static 'images/googlr.png' %}" alt="Google" class="IH">
+            </div>
+        </div>
+        <p class="more-integrations">MORE INTEGRATIONS</p>
     </div>
+
 
     <section class="pricing-section">
         <div class="container">
@@ -1827,3 +1869,12 @@ body {
 </body>
 
 <script src="{% static 'js/index.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const integrationItems = document.querySelectorAll('.integration-item');
+    integrationItems.forEach(item => {
+        item.classList.add('animate');
+    });
+});
+</script>
