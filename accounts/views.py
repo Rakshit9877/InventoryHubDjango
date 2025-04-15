@@ -8,7 +8,7 @@ from .forms import CustomUserCreationForm, CustomPasswordChangeForm, LoginForm
 def login_view(request):
     if request.user.is_authenticated:
         messages.info(request, "You are already logged in!")
-        return redirect('inventory:dashboard')
+        return redirect('index')
     
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
@@ -22,7 +22,7 @@ def login_view(request):
                 user.profile.save()
             
             messages.success(request, f"Welcome back, {user.username}!")
-            return redirect('/inventory/dashboard/')
+            return redirect('index')  # Changed from 'inventory:dashboard' to 'index'
     else:
         form = LoginForm()
     
@@ -33,9 +33,8 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            messages.success(request, f"Welcome, {user.username}! Your account has been created successfully.")
-            return redirect('/inventory/dashboard/')
+            messages.success(request, f"Account created successfully! Please login to continue.")
+            return redirect('accounts:login')  # Changed: don't login automatically, redirect to login page
     else:
         form = CustomUserCreationForm()
     

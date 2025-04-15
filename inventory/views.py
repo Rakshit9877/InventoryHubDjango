@@ -137,7 +137,7 @@ def add_item(request):
                 notes=f"Initial creation with {item.quantity_in_hand} units"
             )
             
-            return redirect('inventory:inventory_home')
+            return redirect('inventory:dashboard')
     else:
         form = ItemForm()
     
