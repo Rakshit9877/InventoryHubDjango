@@ -26,6 +26,7 @@ body {
 }
 
 .dashboard-header {
+    background-color: aqua;
     display: flex;
     justify-content: space-between;
     align-items: center;
