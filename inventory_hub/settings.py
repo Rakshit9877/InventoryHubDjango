@@ -39,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Third-party apps
+    'widget_tweaks',
+    
     # Custom apps
     'accounts.apps.AccountsConfig',
     'inventory.apps.InventoryConfig',
     'admin_dashboard.apps.AdminDashboardConfig',
+    'employee.apps.EmployeeConfig',
 ]
 
 MIDDLEWARE = [

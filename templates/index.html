@@ -75,6 +75,7 @@
                         <a href="#" class="secondary-button">EXPLORE DEMO ACCOUNT</a>
                     {% else %}
                         <a href="{% url 'inventory:dashboard' %}" class="primary-button">GO TO DASHBOARD</a>
+                        <a href="{% url 'employee:employee_management' %}" class="secondary-button">MANAGE EMPLOYEES</a>
                         <a href="{% url 'accounts:profile' %}" class="secondary-button">VIEW YOUR PROFILE</a>
                     {% endif %}
                 </div>
