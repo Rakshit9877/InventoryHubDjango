@@ -9,6 +9,8 @@ from inventory.models import Item, InventoryLog
 from accounts.models import UserProfile
 from django.utils import timezone
 from functools import wraps
+from django.core.paginator import Paginator
+from datetime import timedelta
 
 def admin_required(view_func):
     @wraps(view_func)
@@ -116,11 +118,127 @@ def admin_inventory_logs(request):
 
 @login_required
 @admin_required
-def user_management(request):
-    users = User.objects.all().order_by('-date_joined')
+def inventory_logs(request):
+    # Get filters from request
+    action_filter = request.GET.get('action')
+    date_filter = request.GET.get('date')
+    user_filter = request.GET.get('user')
+    item_filter = request.GET.get('item')
     
-    return render(
-        request, 
-        'admin_dashboard/user_management.html',
-        {'users': users}
-    )
+    # Base queryset
+    logs = InventoryLog.objects.select_related('item', 'user').order_by('-timestamp')
+    
+    # Apply filters
+    if action_filter:
+        logs = logs.filter(action=action_filter)
+    if date_filter:
+        if date_filter == 'today':
+            logs = logs.filter(timestamp__date=timezone.now().date())
+        elif date_filter == 'week':
+            logs = logs.filter(timestamp__gte=timezone.now() - timedelta(days=7))
+        elif date_filter == 'month':
+            logs = logs.filter(timestamp__gte=timezone.now() - timedelta(days=30))
+    if user_filter:
+        logs = logs.filter(user_id=user_filter)
+    if item_filter:
+        logs = logs.filter(item_id=item_filter)
+    
+    # Get unique values for filters
+    actions = InventoryLog.objects.values_list('action', flat=True).distinct()
+    users = User.objects.filter(inventorylog__isnull=False).distinct()
+    items = Item.objects.filter(inventorylog__isnull=False).distinct()
+    
+    # Paginate results
+    paginator = Paginator(logs, 25)
+    page = request.GET.get('page')
+    logs_page = paginator.get_page(page)
+    
+    context = {
+        'logs': logs_page,
+        'actions': actions,
+        'users': users,
+        'items': items,
+        'filters': {
+            'action': action_filter,
+            'date': date_filter,
+            'user': user_filter,
+            'item': item_filter
+        }
+    }
+    
+    return render(request, 'admin_dashboard/inventory_logs.html', context)
+
+@login_required
+@admin_required
+def user_management(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        user_id = request.POST.get('user_id')
+        
+        if action == 'delete':
+            try:
+                user = User.objects.get(id=user_id)
+                if user.is_superuser:
+                    messages.error(request, "Cannot delete superuser accounts.")
+                else:
+                    user.delete()
+                    messages.success(request, "User deleted successfully.")
+            except User.DoesNotExist:
+                messages.error(request, "User not found.")
+                
+        return redirect('admin_dashboard:user_management')
+
+    users = User.objects.select_related('profile').all().order_by('-date_joined')
+    return render(request, 'admin_dashboard/user_management.html', {'users': users})
+
+@login_required
+@admin_required
+def edit_user(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        messages.error(request, "User not found.")
+        return redirect('admin_dashboard:user_management')
+    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        is_staff = request.POST.get('is_staff') == 'on'
+        is_active = request.POST.get('is_active') == 'on'
+        
+        user.username = username
+        user.email = email
+        user.is_staff = is_staff
+        user.is_active = is_active
+        
+        if request.POST.get('new_password'):
+            user.set_password(request.POST.get('new_password'))
+        
+        user.save()
+        messages.success(request, "User updated successfully.")
+        return redirect('admin_dashboard:user_management')
+    
+    return render(request, 'admin_dashboard/edit_user.html', {'edit_user': user})
+
+@login_required
+@admin_required
+def add_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        is_staff = request.POST.get('is_staff') == 'on'
+        
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+        else:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                is_staff=is_staff
+            )
+            messages.success(request, "User created successfully.")
+            return redirect('admin_dashboard:user_management')
+    
+    return render(request, 'admin_dashboard/add_user.html')
