@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'attendance.apps.AttendanceConfig',
     
     # Third-party apps
     'widget_tweaks',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'inventory.apps.InventoryConfig',
     'admin_dashboard.apps.AdminDashboardConfig',
     'employee.apps.EmployeeConfig',
+    'face_attendance.apps.FaceAttendanceConfig',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/inventory/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# Azure Face API Settings
+AZURE_FACE_ENDPOINT = 'https://inventoryhubface.cognitiveservices.azure.com'
+AZURE_FACE_KEY = 'A9eLPiVnOw3Jzv5fjKdAubbhmqkqdoKUi2IPW1UiX2QGVDb1TWPMJQQJ99BDACYeBjFXJ3w3AAAKACOG698o'
+AZURE_FACE_REGION = 'eastus'
+
+# Add logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'attendance': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
